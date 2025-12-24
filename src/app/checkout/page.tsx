@@ -11,10 +11,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { formatPrice } from '@/lib/utils';
 import { getCart, type CartItem } from '@/lib/cart';
 import { getProductById } from '@/data/products';
+import { type Product } from '@/lib/types';
 import { PaymentModal } from '@/components/checkout/PaymentModal';
+import { Badge } from '@/components/ui/badge';
 
 interface CartProduct extends CartItem {
-  product: ReturnType<typeof getProductById>;
+  product: Product;
 }
 
 export default function CheckoutPage() {
