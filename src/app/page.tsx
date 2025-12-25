@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product/ProductCard';
 import { products } from '@/data/products';
 import { calculateSavings } from '@/lib/utils';
+import { type Product } from '@/lib/types';
 
 export default function HomePage() {
   // Находим пылесос за 76 евро для второй позиции
@@ -32,13 +33,13 @@ export default function HomePage() {
     .slice(0, 1);
   
   // Объединяем: первая стиральная машинка + пылесос за 76€ (вторая позиция) + остальные стиральные машинки + другие продукты + одна кофемашина
-  const featuredProducts = [
+  const featuredProducts: Product[] = [
     waschmaschinen[0], // Первая позиция - самая дешевая стиральная машинка
     vacuum76, // Вторая позиция - пылесос за 76€
     ...waschmaschinen.slice(1), // Остальные стиральные машинки
     ...otherProducts.slice(0, 6 - waschmaschinen.length - (vacuum76 ? 1 : 0) - coffeeMachines.length),
     ...coffeeMachines,
-  ].filter(Boolean).slice(0, 6); // Убираем undefined и ограничиваем до 6
+  ].filter((product): product is Product => product !== undefined).slice(0, 6); // Убираем undefined и ограничиваем до 6
 
   return (
     <div>
@@ -70,9 +71,11 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8">Empfohlene Produkte</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            {featuredProducts
+              .filter((p): p is Product => Boolean(p))
+              .map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
           </div>
           <div className="mt-8 text-center">
             <Button asChild variant="outline" size="lg">

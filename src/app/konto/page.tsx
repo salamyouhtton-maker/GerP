@@ -53,15 +53,50 @@ export default function KontoPage() {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-2">Mein Konto</h1>
         <p className="text-muted-foreground mb-8">
           Hier verwalten Sie Bestellungen, Retouren und Ihre Daten.
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Navigation Sidebar */}
+          <div className="lg:col-span-1">
+            <Card className="sticky top-4">
+              <CardHeader>
+                <CardTitle>Navigation</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <Button asChild variant="ghost" className="w-full justify-start">
+                  <Link href="/konto">Übersicht</Link>
+                </Button>
+                <Button asChild variant="ghost" className="w-full justify-start">
+                  <Link href="/konto/bestellungen">Bestellungen</Link>
+                </Button>
+                <Button asChild variant="ghost" className="w-full justify-start">
+                  <Link href="/hilfe/widerruf">Retouren & Widerruf</Link>
+                </Button>
+                <Button asChild variant="ghost" className="w-full justify-start">
+                  <Link href="/konto/daten">Persönliche Daten</Link>
+                </Button>
+                <Button asChild variant="ghost" className="w-full justify-start">
+                  <Link href="/konto/adressen">Adressen</Link>
+                </Button>
+                <div className="pt-4 border-t">
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={() => setIsSupportModalOpen(true)}
+                  >
+                    Support kontaktieren
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-3 space-y-6">
             {/* Last Order */}
             {lastOrder && (
               <Card>
@@ -129,41 +164,6 @@ export default function KontoPage() {
                 </CardContent>
               </Card>
             </div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <Card>
-              <CardHeader>
-                <CardTitle>Navigation</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <Button asChild variant="ghost" className="w-full justify-start">
-                  <Link href="/konto">Übersicht</Link>
-                </Button>
-                <Button asChild variant="ghost" className="w-full justify-start">
-                  <Link href="/konto/bestellungen">Bestellungen</Link>
-                </Button>
-                <Button asChild variant="ghost" className="w-full justify-start">
-                  <Link href="/hilfe/widerruf">Retouren & Widerruf</Link>
-                </Button>
-                <Button asChild variant="ghost" className="w-full justify-start">
-                  <Link href="/konto/daten">Persönliche Daten</Link>
-                </Button>
-                <Button asChild variant="ghost" className="w-full justify-start">
-                  <Link href="/konto/adressen">Adressen</Link>
-                </Button>
-                <div className="pt-4 border-t">
-                  <Button 
-                    variant="outline" 
-                    className="w-full"
-                    onClick={() => setIsSupportModalOpen(true)}
-                  >
-                    Support kontaktieren
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>

@@ -7,10 +7,11 @@ import Link from 'next/link';
 import { formatPrice } from '@/lib/utils';
 import { getCart, removeFromCart, updateCartItemQuantity, type CartItem } from '@/lib/cart';
 import { getProductById } from '@/data/products';
+import { type Product } from '@/lib/types';
 import { Trash2, Plus, Minus } from 'lucide-react';
 
 interface CartProduct extends CartItem {
-  product: ReturnType<typeof getProductById>;
+  product: Product;
 }
 
 export default function WarenkorbPage() {
@@ -22,7 +23,8 @@ export default function WarenkorbPage() {
     const products: CartProduct[] = cartItems
       .map(item => {
         const product = getProductById(item.productId);
-        return product ? { ...item, product } : null;
+        if (!product) return null;
+        return { ...item, product };
       })
       .filter((item): item is CartProduct => item !== null);
 

@@ -22,7 +22,7 @@ interface ProductPageProps {
 export default function ProductPage({ params }: ProductPageProps) {
   const router = useRouter();
   const [productId, setProductId] = useState<string | null>(null);
-  const [product, setProduct] = useState<ReturnType<typeof getProductById>>(null);
+  const [product, setProduct] = useState<ReturnType<typeof getProductById> | null>(null);
   const [notFound, setNotFound] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
@@ -54,10 +54,6 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   if (!productId || !product) {
     return <div className="container mx-auto px-4 py-12">Laden...</div>;
-  }
-
-  if (!product) {
-    notFound();
   }
 
   const savings = calculateSavings(product.priceOriginal, product.priceSale);

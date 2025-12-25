@@ -41,7 +41,8 @@ export default function CheckoutPage() {
     const products: CartProduct[] = cartItems
       .map(item => {
         const product = getProductById(item.productId);
-        return product ? { ...item, product } : null;
+        if (!product) return null;
+        return { ...item, product };
       })
       .filter((item): item is CartProduct => item !== null);
 

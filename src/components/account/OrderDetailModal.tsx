@@ -15,6 +15,7 @@ import { formatPrice } from '@/lib/utils';
 import { Loader2, Package, MapPin, Phone, Clock, CreditCard } from 'lucide-react';
 import { getOrderById } from '@/lib/orders';
 import { getProductById } from '@/data/products';
+import { OrderStatusAnimation } from './OrderStatusAnimation';
 
 interface OrderDetailModalProps {
   order: Order | null;
@@ -70,7 +71,7 @@ export function OrderDetailModal({ order, open, onOpenChange }: OrderDetailModal
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader>
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start gap-4">
             <div>
               <DialogTitle className="text-2xl mb-2">
                 Bestellung {currentOrder.orderNumber}
@@ -79,9 +80,9 @@ export function OrderDetailModal({ order, open, onOpenChange }: OrderDetailModal
                 Vom {currentOrder.date}
               </p>
             </div>
-            <Badge className={getStatusBadgeClass(currentOrder.status)}>
-              {currentOrder.status}
-            </Badge>
+            <div className="flex items-center">
+              <OrderStatusAnimation status={currentOrder.status} />
+            </div>
           </div>
         </DialogHeader>
 
